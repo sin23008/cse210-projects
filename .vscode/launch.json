@@ -4,6 +4,19 @@
     "configurations": [
 
         {
+            "name": "Sandbox Project",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-sandbox-Sandbox",
+            "program": "${workspaceFolder}/sandbox/Sandbox/bin/Debug/net8.0/Sandbox.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/sandbox/Sandbox",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "stopAtEntry": false
+        },
+
+        {
             "name": "Sandbox2 Project",
             "type": "coreclr",
             "request": "launch",
@@ -15,14 +28,15 @@
             "internalConsoleOptions": "neverOpen",
             "stopAtEntry": false
         },
+        
         {
-            "name": "Sandbox Project",
+            "name": "Sandbox3 Project",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build-sandbox-Sandbox",
-            "program": "${workspaceFolder}/sandbox/Sandbox/bin/Debug/net8.0/Sandbox.dll",
+            "preLaunchTask": "build-sandbox-Sandbox3",
+            "program": "${workspaceFolder}/sandbox/Sandbox3/bin/Debug/net8.0/Sandbox3.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/sandbox/Sandbox",
+            "cwd": "${workspaceFolder}/sandbox/Sandbox3",
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",
             "stopAtEntry": false

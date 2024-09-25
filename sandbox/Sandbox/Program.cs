@@ -4,12 +4,13 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.Write("What is your first name? ");
-        string firstName = Console.ReadLine();
+        int i = 1;
+        for (;i<4;i++)
+        {
+            Console.WriteLine(i);
+        };
 
-        Console.Write("What is your last name? ");
-        string lastName = Console.ReadLine();
-
-        Console.WriteLine($"Your name is {lastName}, {firstName} {lastName}.");
+        Console.Write("Outside loop: ");
+        Console.WriteLine(i);
     }
 }
