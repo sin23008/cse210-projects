@@ -1,16 +1,17 @@
-﻿namespace Sandbox2;
+﻿using System;
+using System.Globalization;
+// namespace Sandbox2;
 
 class Program
 {
     static void Main(string[] args)
     {
-        int i = 1;
-        int j = 1;
+        List<int> x;
+        x = [1, 2, 3];
 
-        int inew = i++;
-        int jnew = ++j;
-
-        Console.WriteLine(i);
-        Console.WriteLine(j);
+        foreach (int number in x)
+        { 
+            Console.WriteLine(number);
+        }
     }
 }
