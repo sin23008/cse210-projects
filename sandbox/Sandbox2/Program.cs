@@ -6,8 +6,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        List<int> x;
-        x = [1, 2, 3];
+        List<int> x = [1, 2, 3];
 
         foreach (int number in x)
         { 
