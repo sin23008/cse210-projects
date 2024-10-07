@@ -6,11 +6,6 @@ public class Journal
     public string _entry;
 
     // methods
-    public void show(Journal entry)
-    {
-        Console.WriteLine($"({entry._date})| {entry._prompt}");
-        Console.WriteLine($"{entry._entry}");
-    }
     static string SelectPrompt()
     {
         Random random = new();
@@ -22,14 +17,14 @@ public class Journal
     }
     public void WriteJournal(Archive currentJournal)
     {
-        this._prompt = SelectPrompt();
+        this._prompt = SelectPrompt(); // Generate prompt for entry
 
         Console.WriteLine(this._prompt);
         this._entry = Console.ReadLine();
 
-        DateTime currentDateTime = DateTime.Now;
+        DateTime currentDateTime = DateTime.Now; // Record date of entry at time of entry
         this._date = currentDateTime.ToShortDateString();
 
-        currentJournal._entries.Add(this);
+        currentJournal._entries.Add(this); // Add entry to current journal
     }
 }

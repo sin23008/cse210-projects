@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+
 public class Archive
 {
     // Attributes
@@ -22,7 +24,7 @@ public class Archive
             {
                 Console.Write("A file with this name already exists. Do you wish to 1. Overwrite file, 2. Append to file, or 3. Cancel? ");
                 string saveOption = Console.ReadLine();
-                if (int.TryParse(saveOption, out int saveOptionInt))
+                if (int.TryParse(saveOption, out int saveOptionInt)) // Checks to make sure input is an int
                 {
                     switch (saveOptionInt)
                     {
@@ -46,19 +48,21 @@ public class Archive
                             {
                                 using (StreamWriter outputFile = new StreamWriter(_file, append: true))
                                 {
-                                    outputFile.Write($"{entry._date}|{entry._prompt}|{entry._entry}~");
+                                    outputFile.Write($"{entry._date}|{entry._prompt}|{entry._entry}~"); // Uses | as delimiter for segments of entry, and uses ~ as delimiter to seperate entries
                                 }
                             }
                         break;
                         case 3: // Cancel save
                             Console.WriteLine("Save cancelled");
                             break;
-
+                        default:
+                            Console.WriteLine("Invalid option. Save aborted");
+                            break;
                     }
                     validOption = true;
                 }
                 // If user input was invalid
-                else
+                else // If input was not a valid int
                 {
                     Console.WriteLine("Invalid input. Please enter a valid integer.");
                     validOption = false;
@@ -76,24 +80,22 @@ public class Archive
                 }
             }
         }
-
-
-            
     }
 
     public Archive LoadEntries(string fileName)
     {
         Archive loadedJournal = new Archive();
         loadedJournal._file = fileName;
-        string[] lines = File.ReadAllLines(fileName);
+
+        string[] lines = File.ReadAllLines(fileName); // Read file into array
         foreach (string line in lines)
         {
-            string[] rawEntry = line.Split("~");
+            string[] rawEntry = line.Split("~"); // Splits entries using ~ delimiter
             foreach (string entryString in rawEntry)
             {
                 Journal entry = new Journal();
-                string[] parsedString = entryString.Split("|");
-                if(parsedString[0] != "")
+                string[] parsedString = entryString.Split("|"); // Splits entry segments using | delimiter
+                if(parsedString[0] != "") // Avoids errors of blank entries
                 {
                 entry._date = parsedString[0];
                 entry._prompt = parsedString[1];

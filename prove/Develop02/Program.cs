@@ -21,32 +21,32 @@ class Program
             Console.WriteLine();
             switch (userSelection)
             {
-                case 1:
+                case 1: // Write Journal
                     entry.WriteJournal(currentJournal);
-                    journalSaved = false;
+                    journalSaved = false; // Causes save warning to appear if not saved after this point
                     break;
-                case 2:
+                case 2: // Read Journal
                     currentJournal.ReadJournal();
                     break;
-                case 3:
+                case 3: // Save Journal
                     currentJournal.SaveEntries();
-                    journalSaved = true;
+                    journalSaved = true; // Satisfies requirement to avoid save warning
                     break;
-                case 4:
+                case 4: // Load Journal
                     Console.WriteLine("What file would you like to load? WARNING this will cause current entries to be lost! Enter \"c\" to cancel ");
                     string fileName = Console.ReadLine();
-                    if (fileName == "c")
+                    if (fileName == "c") // This is to prevent losing unsaved entries by loading new journal
                     {
                         break;
                     }
-                    else
+                    else // If not cancelled
                     {
                         currentJournal = currentJournal.LoadJournal(fileName);
                         Console.WriteLine($"{fileName} loaded successfully");
                         break;
                     }
-                case 5:
-                    if (journalSaved == false)
+                case 5: // Exit
+                    if (journalSaved == false) // Save warning to prevent loss of data
                     {
                         bool validAnswer;
                         do
@@ -70,12 +70,12 @@ class Program
                         } while (validAnswer == false);
                     }
                     break;
-                default:
+                default: // For invalid entries
                     Console.WriteLine("Invalid entry. Please try again");
                     break;
             }
 
-        } while (userSelection != 5);
+        } while (userSelection != 5); // Ends program when option 5 is selected
     }
 
     // These methods are now in their appropriate class
