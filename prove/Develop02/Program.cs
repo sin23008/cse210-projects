@@ -22,14 +22,14 @@ class Program
             switch (userSelection)
             {
                 case 1:
-                    WriteJournal(entry, currentJournal);
+                    entry.WriteJournal(currentJournal);
                     journalSaved = false;
                     break;
                 case 2:
-                    ReadJournal(currentJournal);
+                    currentJournal.ReadJournal();
                     break;
                 case 3:
-                    SaveJournal(currentJournal);
+                    currentJournal.SaveEntries();
                     journalSaved = true;
                     break;
                 case 4:
@@ -41,7 +41,7 @@ class Program
                     }
                     else
                     {
-                        currentJournal = LoadJournal(fileName);
+                        currentJournal = currentJournal.LoadJournal(fileName);
                         Console.WriteLine($"{fileName} loaded successfully");
                         break;
                     }
@@ -56,7 +56,7 @@ class Program
                             switch (saveBeforeExiting)
                             {
                                 case "y":
-                                    SaveJournal(currentJournal);
+                                    currentJournal.SaveEntries();
                                     validAnswer = true;
                                     break;
                                 case "n":
@@ -78,47 +78,42 @@ class Program
         } while (userSelection != 5);
     }
 
-    static string SelectPrompt()
-    {
-        Random random = new();
-        List<string> prompts = ["Prompt1", "Prompt2", "Prompt3"];
-        int promptIndex = random.Next(prompts.Count);
-        string prompt = prompts[promptIndex];
-        return prompt;
+    // static string SelectPrompt()
+    // {
+    //     Random random = new();
+    //     List<string> prompts = ["Prompt1", "Prompt2", "Prompt3"];
+    //     int promptIndex = random.Next(prompts.Count);
+    //     string prompt = prompts[promptIndex];
+    //     return prompt;
 
-    }
-    static void WriteJournal(Journal entry, Archive currentJournal)
-    {
-        entry._prompt = SelectPrompt();
+    // }
+    // static void WriteJournal(Journal entry, Archive currentJournal)
+    // {
+    //     entry._prompt = SelectPrompt();
 
-        Console.WriteLine(entry._prompt);
-        entry._entry = Console.ReadLine();
+    //     Console.WriteLine(entry._prompt);
+    //     entry._entry = Console.ReadLine();
 
-        DateTime currentDateTime = DateTime.Now;
-        entry._date = currentDateTime.ToShortDateString();
+    //     DateTime currentDateTime = DateTime.Now;
+    //     entry._date = currentDateTime.ToShortDateString();
 
-        currentJournal._entries.Add(entry);
-    }
+    //     currentJournal._entries.Add(entry);
+    // }
 
-    static void ReadJournal(Archive currentJournal)
-    {
-        int entryCount = currentJournal._entries.Count;
-        for (int i = 0; i < entryCount; i++)
-        {
-            Console.WriteLine($"\n({currentJournal._entries[i]._date})| {currentJournal._entries[i]._prompt}");
-            Console.WriteLine($"{currentJournal._entries[i]._entry}\n");
-        }
-    }
+    // static void ReadJournal(Archive currentJournal)
+    // {
+    //     int entryCount = currentJournal._entries.Count;
+    //     for (int i = 0; i < entryCount; i++)
+    //     {
+    //         Console.WriteLine($"\n({currentJournal._entries[i]._date})| {currentJournal._entries[i]._prompt}");
+    //         Console.WriteLine($"{currentJournal._entries[i]._entry}\n");
+    //     }
+    // }
 
-    static void SaveJournal(Archive currentJournal)
-    {
-        currentJournal.SaveEntries();
-    }
-
-    static Archive LoadJournal(string fileName)
-    {
-        Archive loadedJournal = new Archive();
-        loadedJournal = loadedJournal.LoadEntries(fileName);
-        return loadedJournal;
-    }
+    // static Archive LoadJournal(string fileName)
+    // {
+    //     Archive loadedJournal = new Archive();
+    //     loadedJournal = loadedJournal.LoadEntries(fileName);
+    //     return loadedJournal;
+    // }
 }

@@ -104,4 +104,19 @@ public class Archive
         }
         return loadedJournal;
     }
+    public void ReadJournal()
+    {
+        int entryCount = this._entries.Count;
+        for (int i = 0; i < entryCount; i++)
+        {
+            Console.WriteLine($"\n({this._entries[i]._date})| {this._entries[i]._prompt}");
+            Console.WriteLine($"{this._entries[i]._entry}\n");
+        }
+    }
+    public Archive LoadJournal(string fileName)
+    {
+        Archive loadedJournal = new Archive();
+        loadedJournal = loadedJournal.LoadEntries(fileName);
+        return loadedJournal;
+    }
 }
