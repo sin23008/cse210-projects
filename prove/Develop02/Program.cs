@@ -78,6 +78,7 @@ class Program
         } while (userSelection != 5);
     }
 
+    // These methods are now in their appropriate class
     // static string SelectPrompt()
     // {
     //     Random random = new();
