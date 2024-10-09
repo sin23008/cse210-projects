@@ -4,9 +4,10 @@ class Program
 {
     static void Main(string[] args)
     {
+        // Initializing variables
         int userSelection;
-        Journal entry = new();
-        Archive currentJournal = new();
+        Entry entry = new();
+        Journal currentJournal = new();
         bool journalSaved = true;
         do
         {
@@ -18,7 +19,7 @@ class Program
                 Console.WriteLine("Invalid input. Please enter a number.");
                 continue;  // Skip the rest of the do-while loop if input is invalid
             }
-            Console.WriteLine();
+            Console.WriteLine(); // Blank line
             switch (userSelection)
             {
                 case 1: // Write Journal
