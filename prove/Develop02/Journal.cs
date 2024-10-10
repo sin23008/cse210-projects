@@ -108,11 +108,17 @@ public class Journal
     }
     public void ReadJournal()
     {
-        int entryCount = this._entries.Count;
-        for (int i = 0; i < entryCount; i++)
+        // int entryCount = this._entries.Count;
+        // for (int i = 0; i < entryCount; i++)
+        // {
+        //     Console.WriteLine($"\n({this._entries[i]._date})| {this._entries[i]._prompt}");
+        //     Console.WriteLine($"{this._entries[i]._entry}\n");
+        // }
+
+        foreach (Entry entry in _entries)
         {
-            Console.WriteLine($"\n({this._entries[i]._date})| {this._entries[i]._prompt}");
-            Console.WriteLine($"{this._entries[i]._entry}\n");
+            Console.WriteLine($"\n({entry._date})| {entry._prompt}");
+            Console.WriteLine($"{entry._entry}\n");
         }
     }
 
