@@ -6,22 +6,22 @@ class Program
 {
     static void Main(string[] args)
     {
-        string symbols = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890 !?.,$()-+='";
+        string symbols = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890 !?.,$#%^&*_:;`~(){}[]\\/-+='";
         int key = 0;
         bool loop = true;
         bool isValidKey;
         do
         {
-            Console.Write("\nDo you want to 1. encrypt or 2. decrypt? ");
+            Console.Write("\n\nDo you want to 1. encrypt or 2. decrypt? ");
             string? userInput = Console.ReadLine();
             switch (userInput)
             {
                 case "1":
-                    Console.WriteLine("Please enter the message to encrypt:");
+                    Console.WriteLine("\nPlease enter the message to encrypt:");
                     string? plainMessage = Console.ReadLine();
                     do
                     {
-                        Console.Write("Please enter the encryption key: ");
+                        Console.Write("\nPlease enter the encryption key: ");
                         string? keyInput = Console.ReadLine();
                         isValidKey = int.TryParse(keyInput, out int result);
                         if (isValidKey)
@@ -30,19 +30,19 @@ class Program
                         }
                         else
                         {
-                            Console.WriteLine("Invalid key. Please try again");
+                            Console.WriteLine("\nInvalid key. Please try again");
                         }
                     } while (isValidKey is not true);
 
-                    Console.WriteLine($"{encrypt(plainMessage, key, symbols)}");
+                    Console.WriteLine($"\n{encrypt(plainMessage, key, symbols)}\n");
                     loop = false;
                     break;
                 case "2":
-                Console.WriteLine("Please enter the message to decrypt:");
+                Console.WriteLine("\nPlease enter the message to decrypt:");
                     string? encryptedMessage = Console.ReadLine();
                     do
                     {
-                        Console.Write("Please enter the encryption key: ");
+                        Console.Write("\nPlease enter the encryption key: ");
                         string? keyInput = Console.ReadLine();
                         isValidKey = int.TryParse(keyInput, out int result);
                         if (isValidKey)
@@ -51,15 +51,15 @@ class Program
                         }
                         else
                         {
-                            Console.WriteLine("Invalid key. Please try again");
+                            Console.WriteLine("\nInvalid key. Please try again");
                         }
                     } while (isValidKey is not true);
 
-                    Console.WriteLine($"{decrypt(encryptedMessage, key, symbols)}");
+                    Console.WriteLine($"\n{decrypt(encryptedMessage, key, symbols)}\n");
                     loop = false;
                     break;
                 default:
-                    Console.WriteLine("Invalid input. Please try again");
+                    Console.WriteLine("\nInvalid input. Please try again");
                     break;
             }
         } while (loop);
