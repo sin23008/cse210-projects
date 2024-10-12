@@ -21,7 +21,7 @@
         string prompt = prompts[promptIndex];
         return prompt;
     }
-    public void WriteJournal(Journal currentJournal)
+    public void NewEntry(Journal currentJournal)
     {
         Entry entry = new();
         entry._prompt = SelectPrompt(); // Generate prompt for entry

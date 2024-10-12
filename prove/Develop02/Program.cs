@@ -23,7 +23,7 @@ class Program
             switch (userSelection)
             {
                 case 1: // Write Journal
-                    entry.WriteJournal(currentJournal);
+                    entry.NewEntry(currentJournal);
                     journalSaved = false; // Causes save warning to appear if not saved after this point
                     break;
                 case 2: // Read Journal
@@ -78,44 +78,4 @@ class Program
 
         } while (userSelection != 5); // Ends program when option 5 is selected
     }
-
-    // These methods are now in their appropriate class
-    // static string SelectPrompt()
-    // {
-    //     Random random = new();
-    //     List<string> prompts = ["Prompt1", "Prompt2", "Prompt3"];
-    //     int promptIndex = random.Next(prompts.Count);
-    //     string prompt = prompts[promptIndex];
-    //     return prompt;
-
-    // }
-    // static void WriteJournal(Journal entry, Archive currentJournal)
-    // {
-    //     entry._prompt = SelectPrompt();
-
-    //     Console.WriteLine(entry._prompt);
-    //     entry._entry = Console.ReadLine();
-
-    //     DateTime currentDateTime = DateTime.Now;
-    //     entry._date = currentDateTime.ToShortDateString();
-
-    //     currentJournal._entries.Add(entry);
-    // }
-
-    // static void ReadJournal(Archive currentJournal)
-    // {
-    //     int entryCount = currentJournal._entries.Count;
-    //     for (int i = 0; i < entryCount; i++)
-    //     {
-    //         Console.WriteLine($"\n({currentJournal._entries[i]._date})| {currentJournal._entries[i]._prompt}");
-    //         Console.WriteLine($"{currentJournal._entries[i]._entry}\n");
-    //     }
-    // }
-
-    // static Archive LoadJournal(string fileName)
-    // {
-    //     Archive loadedJournal = new Archive();
-    //     loadedJournal = loadedJournal.LoadEntries(fileName);
-    //     return loadedJournal;
-    // }
 }
