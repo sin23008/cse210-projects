@@ -1,5 +1,3 @@
-using System.Runtime.CompilerServices;
-
 public class Journal
 {
     // Attributes
@@ -106,7 +104,7 @@ public class Journal
         }
         return loadedJournal;
     }
-    
+
     public void ReadJournal()
     {
         foreach (Entry entry in _entries)
