@@ -106,6 +106,7 @@ public class Journal
         }
         return loadedJournal;
     }
+    
     public void ReadJournal()
     {
         foreach (Entry entry in _entries)

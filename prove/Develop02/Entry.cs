@@ -21,6 +21,7 @@
         string prompt = prompts[promptIndex];
         return prompt;
     }
+    
     public void NewEntry(Journal currentJournal)
     {
         Entry entry = new();
