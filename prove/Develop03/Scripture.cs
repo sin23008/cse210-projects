@@ -3,7 +3,7 @@ class Scripture
 {
     public ScriptureReference _reference {get; private set;}
     public List<Word> _words {get; private set;}
-    public bool AllWordsHidden => _words.All(w => w.IsHidden || !IsStr(w._text));
+    public bool _allWordsHidden => _words.All(w => w.IsHidden || !IsStr(w._text));
 
     public Scripture()
     {
@@ -19,7 +19,7 @@ class Scripture
 
     public Scripture getScripture()
     {
-        Console.WriteLine("\nWhat verse would you like to memorize? ");
+        Console.WriteLine("\nWhat verse would you like to memorize? \x1B[3;30m(ex. Alma 36:3 or James 1:5-6)\x1B[0m");
         string userInput = Console.ReadLine();
 
         int lastSpaceIndex = userInput.LastIndexOf(" ");

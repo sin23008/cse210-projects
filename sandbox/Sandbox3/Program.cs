@@ -1,36 +1,27 @@
+﻿namespace Sandbox3;
+
 class Program
 {
     static void Main(string[] args)
     {
-        Scripture scripture = new();
-        bool validScripture = false;
-        Console.Clear();
-        while (!validScripture) {
-        scripture = scripture.getScripture();
+        Random randomGenerator = new();
+        int d3 = randomGenerator.Next(1,7);
+        int d1 = randomGenerator.Next(1,7);
+        int d2 = randomGenerator.Next(1,7);
 
-        if (scripture._words[0]._text != "") {
-            validScripture = true;
+        if (d1 > d2)
+        {
+            (d1, d2) = (d2, d1);
         }
-        else if (scripture._words[0]._text == "") {
-            Console.WriteLine("\n\x1B[1;31m-= Scripture not found, please try again =-\x1B[0m");
+        if (d1 > d3)
+        {
+            (d1, d3) = (d3, d1);
         }
+        if (d2 > d3)
+        {
+            (d2, d3) = (d3, d2);
         }
 
-        while (!scripture.AllWordsHidden) {
-            Console.Clear();
-            scripture.DisplayText();
-            Console.Write("\nPress Enter to continue or type '");
-            Console.Write("\x1B[1;36mquit\x1B[0m");
-            Console.Write("' to exit.\n");
-            string input = Console.ReadLine();
-
-            if (input.ToLower() == "quit")
-                break;
-
-            scripture.HideRandomWords(3);
-        } ;
-        Console.Clear();
-        scripture.DisplayText();
-        Console.WriteLine();
+        Console.WriteLine($"They are {d1}, {d2}, {d3}");
     }
 }
