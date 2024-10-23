@@ -11,20 +11,16 @@ class Program
         if (scripture._words[0]._text != "") {
             validScripture = true;
         }
-        else if (scripture._words[0]._text != "") {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("\nScripture not found, please try again\n");
-            Console.ResetColor();
+        else if (scripture._words[0]._text == "") {
+            Console.WriteLine("\n\x1B[1;31m-= Scripture not found, please try again =-\x1B[0m");
         }
         }
 
         while (!scripture.AllWordsHidden) {
             Console.Clear();
-            Console.WriteLine(scripture.GetDisplayText());
+            scripture.DisplayText();
             Console.Write("\nPress Enter to continue or type '");
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write("quit");
-            Console.ResetColor();
+            Console.Write("\x1B[1;36mquit\x1B[0m");
             Console.Write("' to exit.\n");
             string input = Console.ReadLine();
 
@@ -34,6 +30,7 @@ class Program
             scripture.HideRandomWords(3);
         } ;
         Console.Clear();
-        Console.WriteLine(scripture.GetDisplayText()+"\n");
+        scripture.DisplayText();
+        Console.WriteLine();
     }
 }

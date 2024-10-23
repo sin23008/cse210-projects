@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 class Scripture
 {
     public ScriptureReference _reference {get; private set;}
@@ -41,9 +42,7 @@ class Scripture
             string filePath = "scriptures/lds-scriptures.csv";
             if (!File.Exists(filePath))
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("CSV file not found.");
-                Console.ResetColor();
+                Console.WriteLine("\x1B[1;31mCSV file not found.\x1B[0m");
                 return new Scripture(_reference, "");
             }
 
@@ -72,7 +71,7 @@ class Scripture
 
                     if (userBook == csvBook && userChapter == csvChapter && userVerse == csvVerse)
                     {
-                        words = words + $"{userVerse} {text}\n";
+                        words = words + $"\x1B[1;3m{userVerse}\x1B[0m {text}\n";
                     }
                 }
             }
@@ -80,18 +79,15 @@ class Scripture
         }
         else
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("\nInvalid input format");
-            Console.ResetColor();
+            Console.WriteLine("\n\x1B[1;31m-= Invalid input format =-\x1B[0m");
             return new Scripture(new ScriptureReference("", 0, 0), "");
         }
     }
 
-    public string GetDisplayText()
+    public void DisplayText()
     {
-        string displayText = $"{_reference.GetReferenceString()}\n";
-        displayText += string.Join(" ", _words.Select(w => w.GetWord()));
-        return displayText;
+        Console.WriteLine($"\x1B[1;3;37m{_reference.GetReferenceString()}\x1B[0m\n");
+        Console.WriteLine(string.Join(" ", _words.Select(w => w.GetWord())));
     }
 
     public void HideRandomWords(int numberToHide)
@@ -109,7 +105,7 @@ class Scripture
 
     private bool IsStr(string str)
     {
-        return !string.IsNullOrWhiteSpace(str) && !int.TryParse(str, out _) && !str.All(char.IsPunctuation);
+        return !string.IsNullOrWhiteSpace(str) && !int.TryParse(Regex.Replace(str, @"\x1B\[[0-9;]*[a-zA-Z]", ""), out _) && !str.All(char.IsPunctuation);
     }
     
 }
