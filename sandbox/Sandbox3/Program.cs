@@ -1,27 +1,39 @@
-﻿namespace Sandbox3;
-
 class Program
 {
     static void Main(string[] args)
     {
-        Random randomGenerator = new();
-        int d3 = randomGenerator.Next(1,7);
-        int d1 = randomGenerator.Next(1,7);
-        int d2 = randomGenerator.Next(1,7);
+        Scripture scripture = new();
+        bool validScripture = false;
+        Console.Clear();
+        while (!validScripture) {
+        scripture = scripture.getScripture();
 
-        if (d1 > d2)
-        {
-            (d1, d2) = (d2, d1);
+        if (scripture._words[0]._text != "") {
+            validScripture = true;
         }
-        if (d1 > d3)
-        {
-            (d1, d3) = (d3, d1);
+        else if (scripture._words[0]._text != "") {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("\nScripture not found, please try again\n");
+            Console.ResetColor();
         }
-        if (d2 > d3)
-        {
-            (d2, d3) = (d3, d2);
         }
 
-        Console.WriteLine($"They are {d1}, {d2}, {d3}");
+        while (!scripture.AllWordsHidden) {
+            Console.Clear();
+            Console.WriteLine(scripture.GetDisplayText());
+            Console.Write("\nPress Enter to continue or type '");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write("quit");
+            Console.ResetColor();
+            Console.Write("' to exit.\n");
+            string input = Console.ReadLine();
+
+            if (input.ToLower() == "quit")
+                break;
+
+            scripture.HideRandomWords(3);
+        } ;
+        Console.Clear();
+        Console.WriteLine(scripture.GetDisplayText()+"\n");
     }
 }
