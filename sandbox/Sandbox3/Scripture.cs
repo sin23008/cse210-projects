@@ -14,7 +14,7 @@ class Scripture
     public Scripture(ScriptureReference reference, string text)
     {
         _reference = reference;
-        _words = text.Split(' ').Select(word => new Word(word)).ToList();
+        _words = text.Split(" ").Select(word => new Word(word)).ToList();
     }
 
     public Scripture getScripture()
@@ -63,7 +63,7 @@ class Scripture
                     string userBook = _reference._book.ToLower();
                     int userChapter = _reference._chapter;
                     int userVerse = _reference._verseStart + i;
-                    string[] fields = line.Split('~');
+                    string[] fields = line.Split("~");
                     string csvBook = fields[0].Trim().ToLower();
                     int csvChapter = int.Parse(fields[1].Trim());
                     int csvVerse = int.Parse(fields[2].Trim());
