@@ -6,7 +6,7 @@ class Program
         bool validScripture = false;
         Console.Clear();
         while (!validScripture) {
-        scripture = scripture.getScripture();
+        scripture = scripture.GetScripture();
 
         if (scripture._words[0]._text != "") {
             validScripture = true;

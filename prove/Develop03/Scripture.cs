@@ -17,7 +17,7 @@ class Scripture
         _words = text.Split(" ").Select(word => new Word(word)).ToList();
     }
 
-    public Scripture getScripture()
+    public Scripture GetScripture()
     {
         Console.WriteLine("\nWhat verse would you like to memorize? \x1B[3;30m(ex. Alma 36:3 or James 1:5-6)\x1B[0m");
         string userInput = Console.ReadLine();
