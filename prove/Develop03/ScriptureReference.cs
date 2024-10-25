@@ -1,6 +1,7 @@
 using System.Globalization;
 class ScriptureReference
 {
+    // All attributes can be read but not changed outside of the class
     public string _book {get; private set; }
     public int _chapter {get; private set; }
     public int _verseStart {get; private set; }

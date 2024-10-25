@@ -1,9 +1,9 @@
 using System.Text.RegularExpressions;
 class Scripture
 {
-    public ScriptureReference _reference {get; private set;}
-    public List<Word> _words {get; private set;}
-    public bool _allWordsHidden => _words.All(w => w.IsHidden || !IsStr(w._text));
+    public ScriptureReference _reference {get; private set;} // Allows for attribute to be read but not changed
+    public List<Word> _words {get; private set;} // Allows for attribute to be read but not changed
+    public bool _allWordsHidden => _words.All(w => w.IsHidden || !IsStr(w._text)); // Is read-only
 
     public Scripture()
     {

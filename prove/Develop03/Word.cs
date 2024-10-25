@@ -1,5 +1,6 @@
 class Word
 {
+    // All attributes can be read but not changed outside of the class
     public string _text { get; private set; }
     public bool IsHidden { get; private set; }
 
