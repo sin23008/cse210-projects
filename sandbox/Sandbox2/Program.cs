@@ -65,13 +65,6 @@ class Program
         } while (loop);
     }
 
-    static int intCheck(string userInput)
-    {
-        int.TryParse(userInput, out int result);
-        
-        return result;
-    }
-
     static string encrypt(string? plainMessage, int key, string symbols)
     {
         StringBuilder sb = new StringBuilder();
