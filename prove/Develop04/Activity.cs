@@ -1,7 +1,7 @@
 class Activity
 {
     protected string _name; // Activity name
-    protected string _description;  // Activity description
+    protected string _description; // Activity description
     protected int _duration; // Length of time in milliseconds
 
     protected void StartMessage(string name, string description)
