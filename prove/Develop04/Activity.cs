@@ -15,7 +15,7 @@ class Activity
     {
         if (doCountdown && doAnimation)
         {
-            Console.WriteLine("Cannot perform both countdown and animation simultaneously");
+            Console.WriteLine("\x1B[1;31mCannot perform both countdown and animation simultaneously\x1B[0m");
         }
 
         if (doCountdown)
@@ -60,7 +60,7 @@ class Activity
             }
             else
             {
-                Console.WriteLine("Invalid input. Please try again.\n");
+                Console.WriteLine("\x1B[1;31mInvalid input. Please try again.\x1B[0m\n");
             }
         }
     }
