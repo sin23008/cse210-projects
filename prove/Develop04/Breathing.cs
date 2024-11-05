@@ -45,7 +45,7 @@ class Breathing : Activity
         {
             breathDuration += 2;
         }
-        if (breathDuration <= 6 && breathCount == 1)
+        if (breathDuration >= 6 && breathCount == 1)
         {
             breathDuration /= 2;
         }
