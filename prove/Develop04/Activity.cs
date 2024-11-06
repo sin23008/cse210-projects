@@ -9,7 +9,6 @@ class Activity
         Console.Clear();
         Console.WriteLine($"Welcome to the {name} Activity\n");
         Console.WriteLine($"{description}\n");
-
     }
     protected void Pause(int duration, bool doCountdown, bool doAnimation)
     {

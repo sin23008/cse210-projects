@@ -47,6 +47,7 @@ class Reflection : Activity
     {
         Random random = new();
         string prompt = _events[random.Next(_events.Count())];
+        _events.Remove(prompt); // Ensure this prompt is not displayed again
         Console.WriteLine("Consider the following prompt:\n");
         Console.WriteLine($"\x1B[1m--- {prompt} ---\n\x1B[0m");
 
