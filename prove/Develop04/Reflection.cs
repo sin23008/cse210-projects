@@ -43,7 +43,7 @@ class Reflection : Activity
         EndingMessage(_name, _duration);
     }
 
-    public void DisplayEvent()
+    private void DisplayEvent()
     {
         Random random = new();
         string prompt = _events[random.Next(_events.Count())];
@@ -52,7 +52,7 @@ class Reflection : Activity
 
         
     }
-    public void DisplayPrompt()
+    private void DisplayPrompt()
     {
         Random random = new();
         int promptTime = GetPromptTime(_duration);
@@ -68,7 +68,7 @@ class Reflection : Activity
         }
     }
 
-    public int GetPromptTime(int duration)
+    private int GetPromptTime(int duration)
     {
         int promptCount = duration / 15; // 15 is the target breath length
         if (promptCount == 0)

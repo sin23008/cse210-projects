@@ -27,7 +27,7 @@ class Listing : Activity
         EndingMessage(_name, _duration);
 
     }
-    public void ShowPrompt()
+    private void ShowPrompt()
     {
         Random random = new();
         string prompt = _prompts[random.Next(_prompts.Count())];
@@ -38,7 +38,7 @@ class Listing : Activity
         Console.Clear();
         Console.WriteLine($"\x1B[1m--- {prompt} ---\n\x1B[0m");
     }
-    public void CountResponses()
+    private void CountResponses()
     {
         DateTime startTime = DateTime.Now;
         DateTime endTime = startTime.AddSeconds(_duration);

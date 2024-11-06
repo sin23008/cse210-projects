@@ -29,7 +29,7 @@ class Breathing : Activity
         EndingMessage(_name, _duration);
     }
 
-    public int GetBreathTime(int duration)
+    private int GetBreathTime(int duration)
     {
         int breathCount = duration / 6; // 6 is the target breath length
         if (breathCount == 0)
