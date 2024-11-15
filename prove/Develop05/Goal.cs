@@ -1,5 +1,3 @@
-using System.Diagnostics.Contracts;
-
 public abstract class Goal
 {
     protected string _goalType;
