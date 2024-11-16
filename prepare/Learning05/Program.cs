@@ -14,6 +14,7 @@ class Program
         {
             Console.WriteLine(s.GetColor());
             Console.WriteLine(s.GetArea());
+            Console.WriteLine();
         }
     }
 }
