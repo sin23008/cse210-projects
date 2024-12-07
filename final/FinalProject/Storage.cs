@@ -19,6 +19,7 @@ class Storage
 
 // T2 Update a ticket
     // Find ticket by ID, then use ticket.update()
+    public void UpdateTicket(Ticket ticket) {}
 // T3 Create a new ticket
     public void CreateTicket()
     {
@@ -50,7 +51,7 @@ class Storage
     {
         foreach (Asset asset in _assets)
         {
-            if (asset.GetID() == id)
+            if (asset.GetAssetTag() == id)
             {
                 return asset;
             }
@@ -105,9 +106,10 @@ class Storage
                 break;
             case "n":
                 Console.WriteLine("Who is their supervisor?");
-                string supervisor = Console.ReadLine();
+                string supervisorName = Console.ReadLine();
                 // Look up supervisor, then add to the employee
-                _employees.Add(new PartTime(name, email, role));
+                FullTime supervisor = new FullTime(name, email, role); // Placeholder
+                _employees.Add(new PartTime(name, email, role, supervisor));
                 break;
             default:
                 Console.WriteLine("Invalid input");

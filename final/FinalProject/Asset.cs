@@ -1,13 +1,13 @@
 abstract class Asset
 {
-    private int _assetTag;
-    private string _deviceType;
-    private int _aquisitionYear;
-    private (string, string) _location;
-    private Employee _owner;
-    private bool _isTrickle;
-    private List<int> _tickets;
-    private List<string> _history;
+    protected int _assetTag;
+    protected string _deviceType;
+    protected int _aquisitionYear;
+    protected (string, string) _location;
+    protected Employee _owner;
+    protected bool _isTrickle;
+    protected List<int> _tickets;
+    protected List<string> _history;
 
     public Asset(int assetTag, string deviceType)
     {
@@ -40,7 +40,7 @@ abstract class Asset
         }
     }
     
-    public int GetID()
+    public int GetAssetTag()
     {
         return _assetTag;
     }

@@ -1,10 +1,10 @@
 abstract class Employee
 {
-    private string _name;
-    private string _email;
-    private string _role;
-    private List<string> _history;
-    private bool _isCurrent = true;
+    protected string _name;
+    protected string _email;
+    protected string _role;
+    protected List<string> _history;
+    protected bool _isCurrentEmployee = true;
 
     public Employee(string name, string email, string role)
     {
