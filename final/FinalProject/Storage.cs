@@ -1,11 +1,14 @@
-class Storage
+using System.Runtime.Intrinsics.Arm;
+
+static class Storage
 {
-    private List<Asset> _assets = new List<Asset>();
-    private List<Employee> _employees = new List<Employee>();
-    private List<Ticket> _tickets = new List<Ticket>();
+    private static List<Asset> _assets = new List<Asset>();
+    private static List<Employee> _employees = new List<Employee>();
+    private static List<Ticket> _tickets = new List<Ticket>();
+    private static int _ticketCount = 1000;
 
 // T1 Find a ticket
-    public Ticket GetTicketById(int id)
+    public static Ticket GetTicketById(int id)
     {
         foreach (Ticket ticket in _tickets)
         {
@@ -19,35 +22,50 @@ class Storage
 
 // T2 Update a ticket
     // Find ticket by ID, then use ticket.update()
-    public void UpdateTicket(Ticket ticket) {}
+
 // T3 Create a new ticket
-    public void CreateTicket()
+    public static void CreateTicket()
     {
-        
+        _ticketCount++;
+        Console.WriteLine("What is the title of the ticket?");
+        string title = Console.ReadLine();
+        Console.WriteLine("What is the description of the ticket?");
+        string description = Console.ReadLine();
+        Console.WriteLine("What is the priority of the ticket? (Low, Medium, High)");
+        string priority = Console.ReadLine();
+        Console.WriteLine("Who is the requestor of the ticket?");
+        string requestorName = Console.ReadLine();
+        Employee requestor = GetEmployeeByName(requestorName);
+        Ticket ticket = new Ticket(_ticketCount, title, description, priority, requestor);
+        _tickets.Add(ticket);
+        Console.WriteLine($"Ticket {ticket.GetTicketId()} created.");
+        AwaitInput();
     }
 
 // T4 List tickets
-    public void ViewOpenTickets()
+    public static void ViewOpenTickets()
     {
         foreach (Ticket ticket in _tickets)
         {
             if (ticket._status != "Closed" && ticket._status != "Resolved")
             {
-                ticket.Display();
+                ticket.DisplayOverview();
             }
         }
+        AwaitInput();
     }
 
-    public void ViewAllTickets()
+    public static void ViewAllTickets()
     {
         foreach (Ticket ticket in _tickets)
         {
-            ticket.Display();
+            ticket.DisplayOverview();
         }
+        AwaitInput();
     }
 
 // A1 Find an asset
-    public Asset GetAssetById(int id)
+    public static Asset GetAssetById(int id)
     {
         foreach (Asset asset in _assets)
         {
@@ -59,37 +77,49 @@ class Storage
         return null;
     }
 // A2 Update an asset
-    // Find asset by ID, then use one of the 
+    // Defined in program
+
 // A3 Create a new asset
-    public void CreateAsset(int assetTag, string deviceType)
+    public static void CreateAsset(int assetTag, string deviceType)
     {
         Asset asset = new CurrentAsset(assetTag, deviceType);
         _assets.Add(asset);
+        Console.WriteLine($"Asset {asset.GetAssetTag()} created.");
+        AwaitInput();
     }
 // A4 List assets
-    public void ViewAllAssets()
+    public static void ViewAllAssets()
     {
         foreach (Asset asset in _assets)
         {
             asset.Display();
         }
+        AwaitInput();
     }
 // P1 Find a person
-    public Employee GetEmployeeByName(string name)
+    public static Employee GetEmployeeByName(string name)
     {
-        foreach (Employee employee in _employees)
+        while (true)
         {
-            if (employee.GetName() == name)
+            foreach (Employee employee in _employees)
             {
-                return employee;
+                if (employee.GetName() == name)
+                {
+                    return employee;
+                }
+            }
+            Console.WriteLine("Employee not found. Try again? (y/n)");
+            string answer = Console.ReadLine();
+            if (answer.ToLower() == "n")
+            {
+                return null;
             }
         }
-        return null;
     }
 // P2 Edit a person
 
 // P3 Create a person
-    public void CreateEmployee()
+    public static void CreateEmployee()
     {
         Console.WriteLine("What is the employee's name?");
         string name = Console.ReadLine();
@@ -103,6 +133,8 @@ class Storage
         {
             case "y":
                 _employees.Add(new FullTime(name, email, role));
+                Console.WriteLine("Full time employee added.");
+                AwaitInput();
                 break;
             case "n":
                 Console.WriteLine("Who is their supervisor?");
@@ -110,6 +142,8 @@ class Storage
                 // Look up supervisor, then add to the employee
                 FullTime supervisor = new FullTime(name, email, role); // Placeholder
                 _employees.Add(new PartTime(name, email, role, supervisor));
+                Console.WriteLine("Part time employee added.");
+                AwaitInput();
                 break;
             default:
                 Console.WriteLine("Invalid input");
@@ -119,4 +153,10 @@ class Storage
 
 // P4 List people
 
+
+    public static void AwaitInput()
+    {
+        Console.WriteLine("Press any key to continue...");
+        Console.Read();
+    }
 }

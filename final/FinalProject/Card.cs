@@ -6,7 +6,7 @@ class Card : Ticket
     Asset _oldAsset;
     Asset _newAsset;
     
-    public Card(int id, string title, string requestor, string newAssetType, Asset oldAsset) : base(id, title, requestor) 
+    public Card(int id, string title, Employee requestor, string newAssetType, Asset oldAsset) : base(id, title, requestor) 
     {
         _newAssetType = newAssetType;
         _oldAsset = oldAsset;

@@ -38,6 +38,7 @@ abstract class Asset
         {
             Console.WriteLine(entry);
         }
+        Storage.AwaitInput();
     }
     
     public int GetAssetTag()
@@ -53,5 +54,43 @@ abstract class Asset
         Console.WriteLine($"   Location: {_location.Item1}, {_location.Item2}");
         Console.WriteLine($"   Owner: {_owner.GetName()}");
         Console.WriteLine($"   Trickle: {_isTrickle}");
+    }
+
+    public void Update()
+    {
+        Console.WriteLine("What do you want to update? (location, owner, type, isTrickle)");
+        string field = Console.ReadLine();
+        switch (field.ToLower())
+        {
+            case "location":
+                Console.WriteLine("What is the new Building?");
+                string newBuilding = Console.ReadLine();
+                Console.WriteLine("What is the new Room?");
+                string newRoom = Console.ReadLine();
+                (string, string)newLocation = (newBuilding, newRoom);
+                _history.Add($"Location changed from {_location.Item1} {_location.Item2} to {newLocation.Item1} {newLocation.Item2}");
+                _location = newLocation;
+                break;
+            case "owner":
+                Console.WriteLine("Who is the new owner?");
+                string newOwnerName = Console.ReadLine();
+                Employee newOwner = Storage.GetEmployeeByName(newOwnerName);
+                _history.Add($"Owner changed from {_owner.GetName()} to {newOwner.GetName()}");
+                _owner = newOwner;
+                break;
+            case "type":
+                Console.WriteLine("What is the new device type?");
+                string newDeviceType = Console.ReadLine();
+                _history.Add($"Device type changed from {_deviceType} to {newDeviceType}");
+                _deviceType = newDeviceType;
+                break;
+            case "isTrickle":
+                _history.Add($"Trickle status changed from {_isTrickle} to {!_isTrickle}");
+                _isTrickle = !_isTrickle;
+                break;
+            default:
+                Console.WriteLine("Invalid input");
+                break;
+        }
     }
 }

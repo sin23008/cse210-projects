@@ -7,16 +7,18 @@ class Ticket
     public string _description;
     public string _status;
     public string _priority;
-    public string _requestor;
+    public Employee _requestor;
     private List<string> _history;
+    private int _commentCount;
+    private int _updateCount;
 
-    public Ticket(int id, string title, string requestor) // used for card creation
+    public Ticket(int id, string title, Employee requestor) // used for card creation
     {
         _ticketId = id;
         _title = title;
         _requestor = requestor;
     }
-    public Ticket(int id, string title, string description, string priority, string requestor)
+    public Ticket(int id, string title, string description, string priority, Employee requestor)
     {
         _history = new List<string>();
         _ticketId = id;
@@ -59,7 +61,7 @@ class Ticket
 
     public void Update()
     {
-        Console.WriteLine("What do you want to update?");
+        Console.WriteLine("What do you want to update? (title, description, priority, requestor, add comment)");
         string field = Console.ReadLine();
         switch (field.ToLower())
         {
@@ -82,10 +84,17 @@ class Ticket
                 _priority = newPriority;
                 break;
             case "requestor":
-                Console.WriteLine("What is the new requestor?");
-                string newRequestor = Console.ReadLine();
-                _history.Add($"Requestor changed from {_requestor} to {newRequestor}");
+                Console.WriteLine("Who is the new requestor?");
+                string newRequestorName = Console.ReadLine();
+                Employee newRequestor = Storage.GetEmployeeByName(newRequestorName);
+                _history.Add($"Requestor changed from {_requestor} to {newRequestor.GetName()}");
                 _requestor = newRequestor;
+                break;
+            case "add comment":
+                Console.WriteLine("What is the comment?");
+                string comment = Console.ReadLine();
+                _history.Add($"Comment added: {comment}");
+                _commentCount++;
                 break;
             default:
                 Console.WriteLine("Invalid field");
@@ -100,9 +109,11 @@ class Ticket
             string status = Console.ReadLine();
             ChangeStatus(status);
         }
+        Console.WriteLine("Update complete");
+        Storage.AwaitInput();
     }
 
-    public void Display()
+    public void DisplayOverview()
     {
         Console.WriteLine($"Ticket ID: {_ticketId}");
         Console.WriteLine($"Title: {_title}");
@@ -110,5 +121,22 @@ class Ticket
         Console.WriteLine($"Priority: {_priority}");
         Console.WriteLine($"Requestor: {_requestor}");
         Console.WriteLine($"Status: {_status}");
+        Console.WriteLine($"Comment count: {_commentCount}");
+        Console.WriteLine($"Update count: {_updateCount}");
+    }
+
+    public void DisplayHistory()
+    {
+        DisplayOverview();
+        Console.WriteLine("--===========================--");
+        foreach (string entry in _history)
+        {
+            Console.WriteLine(entry);
+        }
+    }
+
+    public int GetTicketId()
+    {
+        return _ticketId;
     }
 }

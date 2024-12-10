@@ -1,12 +1,11 @@
 class Program
 {
-    static void Main(string[] args)
+    static async void Main(string[] args)
     {
         bool doLoop = true;
 
         while (doLoop)
         {
-            Storage storage = new();
             Console.WriteLine("Options:");
             Console.WriteLine("Tickets:");
             Console.WriteLine("   T1. Find a ticket");
@@ -30,27 +29,45 @@ class Program
             switch (selection.ToUpper())
             {
                 case "T1":
-                    Console.WriteLine("Find a ticket");
-                    Thread.Sleep(1000);
+                    Console.WriteLine("What is the ticket ID of the ticket you want to find?");
+                    int ticketId = int.Parse(Console.ReadLine());
+                    Ticket ticket = Storage.GetTicketById(ticketId);
+                    ticket.DisplayHistory();
+                    Storage.AwaitInput();
                     break;
                 case "T2":
-                    Console.WriteLine("Update a ticket");
-                    Thread.Sleep(1000);
+                    Console.WriteLine("What is the ticket ID of the ticket you want to update?");
+                    ticketId = int.Parse(Console.ReadLine());
+                    ticket = Storage.GetTicketById(ticketId);
+                    ticket.Update();
                     break;
                 case "T3":
-                    Console.WriteLine("Create a new ticket");
-                    Thread.Sleep(1000);
+                    Storage.CreateTicket();
                     break;
                 case "T4":
-                    Console.WriteLine("List all tickets");
-                    Thread.Sleep(1000);
+                    Console.WriteLine("Do you want to list open tickets (1) or all tickets (2)?");
+                    string listChoice = Console.ReadLine();
+                    switch (listChoice)
+                    {
+                        case "1":
+                            Storage.ViewOpenTickets();
+                            break;
+                        case "2":
+                            Storage.ViewAllTickets();
+                            break;
+                    }
                     break;
                 case "A1":
-                    Console.WriteLine("Find an asset");
-                    Thread.Sleep(1000);
+                    Console.WriteLine("What is the asset tag of the asset you want to find?");
+                    int assetTag = int.Parse(Console.ReadLine());
+                    Asset asset = Storage.GetAssetById(assetTag);
+                    asset.ViewHistory();
                     break;
                 case "A2":
-                    Console.WriteLine("Update an asset");
+                    Console.WriteLine("What is the asset tag of the asset you want to update?");
+                    assetTag = int.Parse(Console.ReadLine());
+                    asset = Storage.GetAssetById(assetTag);
+                    asset.Update();
                     Thread.Sleep(1000);
                     break;
                 case "A3":
