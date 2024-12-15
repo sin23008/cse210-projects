@@ -1,19 +1,26 @@
-using System.Diagnostics.Contracts;
-
 class Card : Ticket
 {
     string _newAssetType;
-    Asset _oldAsset;
-    Asset _newAsset;
+    int _oldAsset;
+    int _newAsset;
     
-    public Card(int id, string title, Employee requestor, string newAssetType, Asset oldAsset) : base(id, title, requestor) 
+    public Card(int id, string requestor, string newAssetType, int oldAsset) : base(id, "", requestor) 
     {
         _newAssetType = newAssetType;
         _oldAsset = oldAsset;
     }
 
-    public void AssignReplacementAsset(Asset newAsset)
+    public void AssignReplacementAsset(int newAsset)
     {
         _newAsset = newAsset;
+        _newAssetType = Storage.GetAssetById(_newAsset).GetDeviceType();
+    }
+
+    public void Display()
+    {
+        Console.WriteLine($"Ticket ID: {_ticketId}");
+        Console.WriteLine($"New asset type: {_newAssetType}");
+        Console.WriteLine($"Old asset: {_oldAsset}");
+        Console.WriteLine($"New asset: {_newAsset}");
     }
 }

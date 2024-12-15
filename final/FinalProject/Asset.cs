@@ -4,10 +4,10 @@ abstract class Asset
     protected string _deviceType;
     protected int _aquisitionYear;
     protected (string, string) _location;
-    protected Employee _owner;
+    protected string _owner;
     protected bool _isTrickle;
     protected List<int> _tickets;
-    protected List<string> _history;
+    protected List<string> _history = new List<string>();
 
     public Asset(int assetTag, string deviceType)
     {
@@ -15,14 +15,27 @@ abstract class Asset
         _deviceType = deviceType;
         _aquisitionYear = 0;
         _location = ("", "");
-        _owner = null;
+        _owner = "";
         _isTrickle = false;
         _tickets = new List<int>();
     }
 
-    public void TransferOwnership(Employee newOwner)
+    public void TransferOwnership(string newOwner)
     {
-        _history.Add($"Transferred ownership from {_owner.GetName()} to {newOwner.GetName()}");
+        string newOwnerName = Storage.GetEmployeeByName(newOwner).GetName();
+        _history.Add($"Transferred ownership from {_owner} to {newOwner}");
+        _owner = newOwner;
+    }
+
+    public void SetOwner(string owner)
+    {
+        if (owner == "")
+        {
+            _owner = "";
+            return;
+        }
+        string newOwner = Storage.GetEmployeeByName(owner).GetName();
+        _history.Add($"Transferred ownership from {_owner} to {newOwner}");
         _owner = newOwner;
     }
 
@@ -46,19 +59,15 @@ abstract class Asset
         return _assetTag;
     }
 
-    public void Display()
+    public string GetDeviceType()
     {
-        Console.WriteLine($"Asset ID: {_assetTag}");
-        Console.WriteLine($"   Device Type: {_deviceType}");
-        Console.WriteLine($"   Aquisition Year: {_aquisitionYear}");
-        Console.WriteLine($"   Location: {_location.Item1}, {_location.Item2}");
-        Console.WriteLine($"   Owner: {_owner.GetName()}");
-        Console.WriteLine($"   Trickle: {_isTrickle}");
+        return _deviceType;
     }
+    public abstract void Display();
 
     public void Update()
     {
-        Console.WriteLine("What do you want to update? (location, owner, type, isTrickle)");
+        Console.WriteLine("What do you want to update? (location, owner, type, trickle, card)");
         string field = Console.ReadLine();
         switch (field.ToLower())
         {
@@ -75,8 +84,10 @@ abstract class Asset
                 Console.WriteLine("Who is the new owner?");
                 string newOwnerName = Console.ReadLine();
                 Employee newOwner = Storage.GetEmployeeByName(newOwnerName);
-                _history.Add($"Owner changed from {_owner.GetName()} to {newOwner.GetName()}");
-                _owner = newOwner;
+                newOwnerName = newOwner.GetName();
+                _history.Add($"Owner changed from {_owner} to {newOwner.GetName()}");
+                _owner = newOwnerName;
+                newOwner.AddAsset(_assetTag);
                 break;
             case "type":
                 Console.WriteLine("What is the new device type?");
@@ -84,13 +95,27 @@ abstract class Asset
                 _history.Add($"Device type changed from {_deviceType} to {newDeviceType}");
                 _deviceType = newDeviceType;
                 break;
-            case "isTrickle":
+            case "trickle":
+                Storage.MakeTrickle(_assetTag);
                 _history.Add($"Trickle status changed from {_isTrickle} to {!_isTrickle}");
-                _isTrickle = !_isTrickle;
+                break;
+            case "card":
+                Storage.CreateCard();
+                int ticketIndex = 0;
+                if (_tickets.Count > 0)
+                {
+                    ticketIndex = _tickets.Count - 1;
+                }
+                _history.Add($"Card {_tickets[ticketIndex]} created for asset {_assetTag}");
                 break;
             default:
                 Console.WriteLine("Invalid input");
                 break;
         }
+    }
+
+    public void AddTicket(int ticketId)
+    {
+        _tickets.Add(ticketId);
     }
 }

@@ -1,24 +1,23 @@
-using System.Diagnostics.Contracts;
-
 class Ticket
 {
-    public int _ticketId;
-    public string _title;
-    public string _description;
-    public string _status;
-    public string _priority;
-    public Employee _requestor;
-    private List<string> _history;
-    private int _commentCount;
-    private int _updateCount;
+    protected int _ticketId;
+    protected string _title;
+    protected string _description;
+    protected string _status;
+    protected string _priority;
+    protected string _requestor;
+    protected List<int> _assets;
+    protected List<string> _history;
+    protected int _commentCount;
+    protected int _updateCount;
 
-    public Ticket(int id, string title, Employee requestor) // used for card creation
+    public Ticket(int id, string title, string requestor) // used for card creation
     {
         _ticketId = id;
         _title = title;
         _requestor = requestor;
     }
-    public Ticket(int id, string title, string description, string priority, Employee requestor)
+    public Ticket(int id, string title, string description, string priority, string requestor)
     {
         _history = new List<string>();
         _ticketId = id;
@@ -61,7 +60,7 @@ class Ticket
 
     public void Update()
     {
-        Console.WriteLine("What do you want to update? (title, description, priority, requestor, add comment)");
+        Console.WriteLine("What do you want to update? (title, description, priority, requestor, comment, assets)");
         string field = Console.ReadLine();
         switch (field.ToLower())
         {
@@ -70,31 +69,44 @@ class Ticket
                 string newTitle = Console.ReadLine();
                 _history.Add($"Title changed from {_title} to {newTitle}");
                 _title = newTitle;
+                _updateCount++;
                 break;
             case "description":
                 Console.WriteLine("What is the new description?");
                 string newDescription = Console.ReadLine();
                 _history.Add($"Description changed from {_description} to {newDescription}");
                 _description = newDescription;
+                _updateCount++;
                 break;
             case "priority":
                 Console.WriteLine("What is the new priority?");
                 string newPriority = Console.ReadLine();
                 _history.Add($"Priority changed from {_priority} to {newPriority}");
                 _priority = newPriority;
+                _updateCount++;
                 break;
             case "requestor":
                 Console.WriteLine("Who is the new requestor?");
                 string newRequestorName = Console.ReadLine();
-                Employee newRequestor = Storage.GetEmployeeByName(newRequestorName);
-                _history.Add($"Requestor changed from {_requestor} to {newRequestor.GetName()}");
+                string newRequestor = Storage.GetEmployeeByName(newRequestorName).GetName();
+                _history.Add($"Requestor changed from {_requestor} to {newRequestor}");
                 _requestor = newRequestor;
+                Storage.GetEmployeeByName(newRequestorName).AddTicket(_ticketId);
+                _updateCount++;
                 break;
-            case "add comment":
+            case "comment":
                 Console.WriteLine("What is the comment?");
                 string comment = Console.ReadLine();
                 _history.Add($"Comment added: {comment}");
                 _commentCount++;
+                _updateCount++;
+                break;
+            case "assets":
+                Console.WriteLine("What is the asset ID?");
+                int assetId = int.Parse(Console.ReadLine());
+                _history.Add($"Asset added: {assetId}");
+                _assets.Add(assetId);
+                _updateCount++;
                 break;
             default:
                 Console.WriteLine("Invalid field");
@@ -121,6 +133,11 @@ class Ticket
         Console.WriteLine($"Priority: {_priority}");
         Console.WriteLine($"Requestor: {_requestor}");
         Console.WriteLine($"Status: {_status}");
+        Console.WriteLine($"Assets:");
+        foreach (int assetId in _assets)
+        {
+            Console.WriteLine($"  {assetId}");
+        }
         Console.WriteLine($"Comment count: {_commentCount}");
         Console.WriteLine($"Update count: {_updateCount}");
     }
@@ -138,5 +155,15 @@ class Ticket
     public int GetTicketId()
     {
         return _ticketId;
+    }
+
+    public string GetTitle()
+    {
+        return _title;
+    }
+
+    public string GetStatus()
+    {
+        return _status;
     }
 }

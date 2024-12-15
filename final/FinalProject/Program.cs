@@ -1,6 +1,6 @@
 class Program
 {
-    static async void Main(string[] args)
+    static void Main(string[] args)
     {
         bool doLoop = true;
 
@@ -22,6 +22,7 @@ class Program
             Console.WriteLine("   P2. Edit a person");
             Console.WriteLine("   P3. Create a person");
             Console.WriteLine("   P4. List all people");
+            Console.WriteLine("Q. Quit");
             Console.Write("Select a choice from the menu: ");
             string selection = Console.ReadLine();
             Console.WriteLine();
@@ -45,7 +46,7 @@ class Program
                     Storage.CreateTicket();
                     break;
                 case "T4":
-                    Console.WriteLine("Do you want to list open tickets (1) or all tickets (2)?");
+                    Console.WriteLine("Do you want to list (1) open tickets, (2) all tickets, or (3) cards?");
                     string listChoice = Console.ReadLine();
                     switch (listChoice)
                     {
@@ -55,12 +56,19 @@ class Program
                         case "2":
                             Storage.ViewAllTickets();
                             break;
+                        case "3":
+                            Storage.ViewAllCards();
+                            break;
+                        default:
+                            Console.WriteLine("Invalid choice.");
+                            break;
                     }
                     break;
                 case "A1":
                     Console.WriteLine("What is the asset tag of the asset you want to find?");
                     int assetTag = int.Parse(Console.ReadLine());
                     Asset asset = Storage.GetAssetById(assetTag);
+                    asset.Display();
                     asset.ViewHistory();
                     break;
                 case "A2":
@@ -68,33 +76,80 @@ class Program
                     assetTag = int.Parse(Console.ReadLine());
                     asset = Storage.GetAssetById(assetTag);
                     asset.Update();
-                    Thread.Sleep(1000);
+                    Storage.AwaitInput();
                     break;
                 case "A3":
-                    Console.WriteLine("Create a new asset");
-                    Thread.Sleep(1000);
+                    Storage.CreateAsset();
                     break;
                 case "A4":
-                    Console.WriteLine("List all assets");
-                    Thread.Sleep(1000);
+                    Console.WriteLine("Do you want to list (1) current assets, (2) trickle assets, (3) or all assets?");
+                    listChoice = Console.ReadLine();
+                    switch (listChoice)
+                    {
+                        case "1":
+                            Storage.ViewCurrentAssets();
+                            break;
+                        case "2":
+                            Storage.ViewTrickleAssets();
+                            break;
+                        case "3":
+                            Storage.ViewAllAssets();
+                            break;
+                    }
                     break;
                 case "P1":
-                    Console.WriteLine("Find a person");
-                    Thread.Sleep(1000);
+                    Console.WriteLine("Who is the person you want to find?");
+                    string name = Console.ReadLine();
+                    Employee employee = Storage.GetEmployeeByName(name);
+                    employee.ViewInfo();
+                    Console.WriteLine("What do you want to view about this person? ((1)History, (2)Assets, (3)Tickets)");
+                    string viewChoice = Console.ReadLine();
+                    switch (viewChoice)
+                    {
+                        case "1":
+                            employee.ViewHistory();
+                            Storage.AwaitInput();
+                            break;
+                        case "2":
+                            employee.ViewAssets();
+                            Storage.AwaitInput();
+                            break;
+                        case "3":
+                            employee.ViewTickets();
+                            Storage.AwaitInput();
+                            break;
+                    }
                     break;
                 case "P2":
-                    Console.WriteLine("Edit a person");
-                    Thread.Sleep(1000);
+                    Console.WriteLine("Who do you want to edit?");
+                    name = Console.ReadLine();
+                    employee = Storage.GetEmployeeByName(name);
+                    employee.Update();
                     break;
                 case "P3":
-                    Console.WriteLine("Create a person");
-                    Thread.Sleep(1000);
+                    Storage.CreateEmployee();
                     break;
                 case "P4":
-                    Console.WriteLine("List all people");
-                    Thread.Sleep(1000);
+                    Console.WriteLine("Do you want to list (1)full time employees, (2)part time employees, or (3)all employees?");
+                    listChoice = Console.ReadLine();
+                    switch (listChoice)
+                    {
+                        case "1":
+                            Storage.ViewFullTimeEmployees();
+                            break;
+                        case "2":
+                            Storage.ViewPartTimeEmployees();
+                            break;
+                        case "3":
+                            Storage.ViewAllEmployees();
+                            break;
+                        default:
+                            Console.WriteLine("\nInvalid selection\n");
+                            Thread.Sleep(1000);
+                            break;
+                    }
                     break;
-                case "EXIT":
+                case "EXIT" or "QUIT" or "E" or "Q":
                     doLoop = false;
                     break;
                 default:
